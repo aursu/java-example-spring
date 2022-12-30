@@ -9,11 +9,13 @@ public class Expression extends RPNParser {
     private String infix = null;
 
     // calculated expression value
-    private double value;
+    private Double value = null;
 
     // if expression is valid
     private boolean valid = false,
                     empty = false;
+
+    private int errorOffset = -1;
 
     public Expression(String input) {
         super(input);
@@ -35,6 +37,7 @@ public class Expression extends RPNParser {
         } catch (ParseException e) {
             if (buffer.isEmpty())
                 empty = true;
+            errorOffset = e.getErrorOffset();
         }
     }
 
@@ -46,11 +49,15 @@ public class Expression extends RPNParser {
         return empty;
     }
 
-    public double value() {
+    public Double value() {
         return value;
     }
 
     public String infix() {
         return infix;
+    }
+
+    public int getErrorOffset() {
+        return errorOffset;
     }
 }
