@@ -18,15 +18,15 @@ public class RPNParser {
     private Deque<Token<?>> outQueue = new ArrayDeque<>();
 
     public RPNParser(String input) {
-        setup(input);
+        init(input);
     }
 
     public RPNParser(InputReader input) {
-        setup(input);
+        init(input);
     }
 
     // setup token stream and string buffer with new values
-    protected void setup(InputReader input) {
+    private void init(InputReader input) {
         this.input = new TokenStream(input);
 
         buffer = input.toString();
@@ -36,14 +36,14 @@ public class RPNParser {
         outQueue.clear();
     }
 
-    protected void setup(String input) {
-        setup(new InputReader(input));
+    protected void init(String input) {
+        init(new InputReader(input));
     }
 
     // reset input stream to initial state (stored in buffer)
     public void reset() {
         if(buffer == null) return;
-        setup(new InputReader(buffer));
+        init(new InputReader(buffer));
     }
 
     // Shunting yard algorithm
